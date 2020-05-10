@@ -2,9 +2,13 @@ import React, {Component} from 'react';
 import {StyleSheet, Animated, View} from 'react-native';
 
 export default class AnimatedMarker extends Component {
-  state = {
-    animation: new Animated.Value(1),
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      animation: new Animated.Value(1),
+    };
+  }
 
   componentDidMount() {
     this.startAnimation();

@@ -1,43 +1,42 @@
 import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Text, SafeAreaView} from 'react-native';
 import MapView from 'react-native-maps';
+export class App extends Component {
+  constructor(props) {
+    super(props);
 
-export default class Region extends Component {
-  state = {
-    region: {
-      latitude: 37.78825,
-      longitude: -122.4324,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    },
-  };
+    this.state = {
+      region: {
+        latitude: 41.066566,
+        longitude: 29.048537,
+        latitudeDelta: 0.1,
+        longitudeDelta: 0.1,
+      },
+    };
+  }
 
   componentDidMount() {
     setTimeout(() => {
       this.setState({
         region: {
-          ...this.state.region,
-          latitude: 38,
+          latitude: 41.066566,
+          longitude: 29.048537,
+          latitudeDelta: 0.4,
+          longitudeDelta: 0.4,
         },
       });
-    }, 2000);
+    }, 3000);
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <MapView style={styles.map} region={this.state.region} />
-      </View>
+      <MapView
+        style={{flex: 1}}
+        initialRegion={this.state.region}
+        region={this.state.region}
+      />
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-  },
-  map: {
-    flex: 1,
-  },
-});
+export default App;

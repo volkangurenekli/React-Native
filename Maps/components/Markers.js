@@ -1,74 +1,74 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {Text, SafeAreaView} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
-
 import AnimatedMarker from './AnimatedMarker';
+export class App extends Component {
+  constructor(props) {
+    super(props);
 
-export default class Markers extends Component {
-  state = {
-    region: {
-      latitude: 37.78825,
-      longitude: -122.4324,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    },
-    markers: [
-      {
-        latlng: {
-          latitude: 37.78825,
-          longitude: -122.4324,
-        },
-        title: 'Evim',
-        description: 'Lorem ipsum',
+    this.state = {
+      region: {
+        latitude: 41.066566,
+        longitude: 29.048537,
+        latitudeDelta: 0.1,
+        longitudeDelta: 0.1,
       },
-      {
-        latlng: {
-          latitude: 37.76825,
-          longitude: -122.4324,
-        },
-        title: 'İş yerim',
-        description: 'Lorem ipsum 2',
-      },
-      {
-        latlng: {
-          latitude: 37.74825,
-          longitude: -122.4324,
-        },
-        title: 'Annem',
-        description: 'Lorem ipsum 3',
-      },
-    ],
-  };
 
-  componentDidMount() {}
+      markers: [
+        {
+          latitude: 41.036047,
+          longitude: 29.013627,
+          title: '1',
+          description: 'one',
+        },
 
+        {
+          latitude: 41.066566,
+          longitude: 29.048537,
+          title: '2',
+          description: 'two',
+        },
+        {
+          latitude: 41.100287,
+          longitude: 29.059934,
+          title: '3',
+          description: 'three',
+        },
+        {
+          latitude: 41.125103,
+          longitude: 29.087367,
+          title: '4',
+          description: 'four',
+        },
+      ],
+    };
+  }
+
+  onRegionChange(region) {
+    this.setState({region});
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <MapView style={styles.map} region={this.state.region}>
-          {this.state.markers.map((marker, key) => (
-            <Marker
-              key={key}
-              coordinate={marker.latlng}
-              title={marker.title}
-              description={marker.description}
-              //image={require('../assets/custom-marker.png')}
-            >
-              <AnimatedMarker />
-            </Marker>
-          ))}
-        </MapView>
-      </View>
+      <MapView
+        region={this.state.region}
+        onRegionChange={() => this.onRegionChange}
+        style={{flex: 1}}>
+        {this.state.markers.map((marker, key) => (
+          <Marker
+            key={key}
+            coordinate={{
+              latitude: marker.latitude,
+              longitude: marker.longitude,
+            }}
+            title={marker.title}
+            description={marker.description}
+            image={require('../assets/icon.png')}>
+            {/* <AnimatedMarker /> */}
+          </Marker>
+        ))}
+      </MapView>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-  },
-  map: {
-    flex: 1,
-  },
-});
+export default App;
